@@ -13,7 +13,6 @@ async function postUser(req, res) {
         email,
         city,
         company,
-        avatar,
     } = req.body;
 
     try {
@@ -23,7 +22,7 @@ async function postUser(req, res) {
             email,
             city,
             company,
-            avatar,
+            avatar: API_IMAGES + md5(email),
         }, {
             fields: ["name", "email", "city", "company", "avatar",]
         })
@@ -70,7 +69,7 @@ async function getUsers(req, res) {
                 })
             )
         }
-        if (awaitUser || users.length > 1) {
+        if (awaitUser || users.length >= 1) {
             res.json({
                 message: "users found",
                 users

@@ -66,7 +66,7 @@ async function getPosts(req, res) {
                 })
             )
         }
-        if (awaitPosts || posts.length > 1) {
+        if (awaitPosts || posts.length >= 1) {
             res.json({
                 message: "posts found",
                 posts,

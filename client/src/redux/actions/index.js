@@ -36,10 +36,25 @@ function receiveUsers(users) {
 
 function receivePosts(posts) {
     return {
-        type: 'RECEIVE_USERS',
+        type: 'RECEIVE_POSTS',
         posts
     }
 }
+
+export function goToEditPost(post) {
+    return {
+        type: 'EDIT_POST',
+        post
+    }
+}
+
+export function goToEditUser(user) {
+    return {
+        type: 'EDIT_USER',
+        user
+    }
+}
+
 
 //-------------------------------USERS-------------------------------------------------
 
@@ -50,18 +65,18 @@ export function getUsers() {
         fetch(api)
             .then(async res => {
                 const inJsonResponse = await res.json()
-                dispatch(receiveUsers(inJsonResponse.apiUsers))
+                dispatch(receiveUsers(inJsonResponse.users))
             })
             .catch(e => console.log(e));
     }
 }
 
 export function createUser(data) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(loading())
         const api = API_BASE + API_USERS + API_CREATE
         try {
-            fetch(api, {
+            await fetch(api, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -76,11 +91,11 @@ export function createUser(data) {
 }
 
 export function updateUser(data) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(loading())
         const api = API_BASE + API_USERS + API_UPDATE
         try {
-            fetch(api, {
+            await fetch(api, {
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {
@@ -95,18 +110,18 @@ export function updateUser(data) {
 }
 
 export function deleteUser(id) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(loading())
         const api = API_BASE + API_USERS + API_DELETE
         try {
-            fetch(api, {
+            await fetch(api, {
                 method: 'DELETE',
                 body: JSON.stringify({ id }),
                 headers: {
                     'Content-Type': 'application/json'
                 },
             })
-            dispatch(success())
+            dispatch(getUsers())
         } catch (error) {
             dispatch(failure())
         }
@@ -122,18 +137,18 @@ export function getPosts() {
         fetch(api)
             .then(async res => {
                 const inJsonResponse = await res.json()
-                dispatch(receivePosts(inJsonResponse.apiPosts))
+                dispatch(receivePosts(inJsonResponse.posts))
             })
             .catch(e => console.log(e));
     }
 }
 
 export function createPost(data) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(loading())
         const api = API_BASE + API_POSTS + API_CREATE
         try {
-            fetch(api, {
+            await fetch(api, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -148,11 +163,11 @@ export function createPost(data) {
 }
 
 export function updatePost(data) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(loading())
         const api = API_BASE + API_POSTS + API_UPDATE
         try {
-            fetch(api, {
+            await fetch(api, {
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {
@@ -167,18 +182,18 @@ export function updatePost(data) {
 }
 
 export function deletePost(id) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(loading())
         const api = API_BASE + API_POSTS + API_DELETE
         try {
-            fetch(api, {
+            await fetch(api, {
                 method: 'DELETE',
                 body: JSON.stringify({ id }),
                 headers: {
                     'Content-Type': 'application/json'
                 },
             })
-            dispatch(success())
+            dispatch(getPosts())
         } catch (error) {
             dispatch(failure())
         }
