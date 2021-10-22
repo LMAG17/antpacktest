@@ -48,22 +48,28 @@ async function postPost(req, res) {
 async function getPosts(req, res) {
     try {
         let posts
-        let apiPosts
+        let awaitPosts
         posts = await Post.findAll()
         const api = API_BASE + API_POSTS
-        apiPosts = await (await axios.get(api)).data.map(post => {
-            return {
-                id: post.id,
-                userId: post.userId,
-                title: post.title,
-                body: post.body,
-            }
-        })
-        if (posts || apiPosts) {
+        if (posts.length < 1) {
+            awaitPosts = await Promise.all(
+                await (await axios.get(api)).data.map(async post => {
+                    let newPost = await Post.create({
+                        id: post.id,
+                        userId: post.userId,
+                        title: post.title,
+                        body: post.body,
+                    }, {
+                        fields: ["userId", "title", "body"]
+                    })
+                    posts.push(newPost);
+                })
+            )
+        }
+        if (awaitPosts || posts.length > 1) {
             res.json({
                 message: "posts found",
                 posts,
-                apiPosts
             })
         }
     } catch (error) {

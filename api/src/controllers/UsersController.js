@@ -1,8 +1,10 @@
 const { User } = require('../db');
 const axios = require('axios');
+const md5 = require('md5')
 const {
     API_BASE,
     API_USERS,
+    API_IMAGES,
 } = process.env;
 
 async function postUser(req, res) {
@@ -13,8 +15,6 @@ async function postUser(req, res) {
         company,
         avatar,
     } = req.body;
-
-    console.log("req.body", req.body);
 
     try {
 
@@ -40,7 +40,6 @@ async function postUser(req, res) {
             })
         }
     } catch (error) {
-        console.log("error", error);
         res.status(500).json({
             message: "Cant create the new user",
             data: error,
@@ -52,27 +51,33 @@ async function postUser(req, res) {
 async function getUsers(req, res) {
     try {
         let users
-        let apiUsers
-        console.log("llega aqui");
+        let awaitUser
         users = await User.findAll()
         const api = API_BASE + API_USERS
-        apiUsers = await (await axios.get(api)).data.map(user => {
-            return {
-                name: user.name,
-                email: user.email,
-                city: user.address.city,
-                company: user.company.name
-            }
-        })
-        console.log("apiUsers", apiUsers);
-        if (users || apiUsers) {
+        if (users.length < 1) {
+            awaitUser = await Promise.all(
+                await (await axios.get(api)).data.map(async user => {
+                    let newUser = await User.create({
+                        name: user.name,
+                        email: user.email,
+                        city: user.address.city,
+                        company: user.company.name,
+                        avatar: API_IMAGES + md5(user.email)
+                    }, {
+                        fields: ["name", "email", "city", "company", "avatar",]
+                    })
+                    users.push(newUser);
+                })
+            )
+        }
+        if (awaitUser || users.length > 1) {
             res.json({
                 message: "users found",
-                users,
-                apiUsers
+                users
             })
         }
     } catch (error) {
+        console.log("error", error);
         res.status(500).json({
             message: "users not found :(",
             data: error
