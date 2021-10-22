@@ -8,3 +8,5 @@ connection.sync({ force: true })
     console.log(`listening at ${port}`);
   });
 });
+
+

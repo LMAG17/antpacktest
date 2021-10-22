@@ -1,10 +1,9 @@
-import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionsCreators from '../redux/actions';
 
 function Login({ state, getUsers, createUser, updateUser, deleteUser, getPosts, createPost, updatePost, deletePost, }) {
-    console.log("state", state);
     return (
         <div>
 
