@@ -47,7 +47,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { User, Post } = sequelize.models;
 
-// Videogame.belongsToMany(User, { through: "game_user" })
+Post.hasOne(User, { as: "user", foreignKey: "userId" })
+User.belongsToMany(Post, { through: "user_posts" })
 
 module.exports = {
   ...sequelize.models,
