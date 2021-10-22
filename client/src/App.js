@@ -29,21 +29,8 @@ function RoutesWithQuery() {
   const query = useQuery();
 
   return (
-    <div>
-      <nav >
-        <ul id="navUl">
-          <li>
-            <Link id="brand" to="/home">Inicio</Link>
-          </li>
-          <li>
-            <Link className="link" to="/users">Usuarios</Link>
-          </li>
-          <li>
-            <Link className="link" to="/posts">Publicaciones</Link>
-          </li>
-        </ul>
-      </nav>
-      <div>
+    <div id="app">
+      <div id="routes">
         <Switch>
           <Route exact path="/">
             <Login />
@@ -65,6 +52,19 @@ function RoutesWithQuery() {
           </Route>
         </Switch>
       </div>
+      <nav >
+        <ul id="navUl">
+          <li>
+            <Link className="brand" to="/home">Inicio</Link>
+          </li>
+          <li>
+            <Link className="link" to="/users">Usuarios</Link>
+          </li>
+          <li>
+            <Link className="link" to="/posts">Publicaciones</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   )
 }

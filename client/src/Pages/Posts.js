@@ -13,18 +13,18 @@ function Posts({ state, getPosts, deletePost, goToEditPost }) {
     return (
         loading ? <div>
             Cargando...
-        </div> : <div>
+        </div> : <div className="list-section">
             <table>
                 <thead>
-                    <th>id</th>
-                    <th>userId</th>
-                    <th>title</th>
-                    <th>body</th>
+                    <th>Id</th>
+                    <th>Id usuario</th>
+                    <th>Titulo</th>
+                    <th>Publicacion</th>
                     <th>Editar</th>
                     <th>Borrar</th>
                     <th><button onClick={() => {
                         goToEditPost()
-                    }}><Link to="/createPost">Crear</Link></button></th>
+                    }}><Link className="button" to="/createPost">+</Link></button></th>
                 </thead>
                 <tbody>
                     {posts.map(post => {
@@ -37,7 +37,7 @@ function Posts({ state, getPosts, deletePost, goToEditPost }) {
                                 <td><button
                                     onClick={() => {
                                         goToEditPost(post)
-                                    }}><Link to="/createPost">Editar</Link></button></td>
+                                    }}><Link className="button" to="/createPost">Editar</Link></button></td>
                                 <td><button onClick={() => {
                                     deletePost(post.id)
                                 }}>Borrar</button></td>

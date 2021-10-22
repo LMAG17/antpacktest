@@ -45,17 +45,17 @@ function PostForm({ state, createPost, updatePost }) {
         <div className="sectionForm">
             <h1>Crear publicacion!</h1>
             <form onSubmit={formPreventDefault} >
-                <label>userId</label>
+                <label>Id usuario: </label>
                 <input onChange={(event) => {
                     setData({ ...data, userId: event.target.value })
                 }} type="number" name="userId" value={data.userId} />
                 <br />
-                <label>title</label>
+                <label>Titulo: </label>
                 <input onChange={(event) => {
                     setData({ ...data, title: event.target.value })
                 }} type="text" name="title" value={data.title} />
                 <br />
-                <label>body</label>
+                <label>Publicacion: </label>
                 <input onChange={(event) => {
                     setData({ ...data, body: event.target.value })
                 }} type="text" name="body" value={data.body} />

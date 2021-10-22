@@ -15,20 +15,20 @@ function Users({ state, getUsers, deleteUser, goToEditUser }) {
     return (
         loading ? <div>
             Cargando...
-        </div> : <div>
+        </div> : <div className="list-section">
             <table>
                 <thead>
-                    <th>id</th>
-                    <th>avatar</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>city</th>
-                    <th>company</th>
+                    <th>Id</th>
+                    <th>Avatar</th>
+                    <th>Nombre</th>
+                    <th>Correo electrónico</th>
+                    <th>Ciudad</th>
+                    <th>Compañia</th>
                     <th>Editar</th>
                     <th>Borrar</th>
                     <th><button onClick={() => {
                         goToEditUser()
-                    }}><Link to="/createUser">Crear</Link></button></th>
+                    }}><Link className="button" to="/createUser">+</Link></button></th>
                 </thead>
                 <tbody>
                     {users.map(user => {
@@ -42,7 +42,7 @@ function Users({ state, getUsers, deleteUser, goToEditUser }) {
                                 <td>{user.company}</td>
                                 <td><button onClick={() => {
                                     goToEditUser(user)
-                                }}><Link to="/createUser">Editar</Link></button></td>
+                                }}><Link className="button" to="/createUser">Editar</Link></button></td>
                                 <td><button onClick={() => {
                                     deleteUser(user.id)
                                 }}>Borrar</button></td>

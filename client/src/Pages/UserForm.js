@@ -44,22 +44,22 @@ function UserForm({ createUser, state, updateUser }) {
         <div className="sectionForm">
             <h1>Crear usuario!</h1>
             <form onSubmit={formPreventDefault} >
-                <label>name</label>
+                <label>Nombre: </label>
                 <input onChange={(event) => {
                     setData({ ...data, name: event.target.value })
                 }} type="text" name="name" value={data.name} />
                 <br />
-                <label>email</label>
+                <label>Correo electrónico: </label>
                 <input onChange={(event) => {
                     setData({ ...data, email: event.target.value })
                 }} type="text" name="email" value={data.email} />
                 <br />
-                <label>city</label>
+                <label>Ciudad: </label>
                 <input onChange={(event) => {
                     setData({ ...data, city: event.target.value })
                 }} type="text" name="city" value={data.city} />
                 <br />
-                <label>company</label>
+                <label>Compañia: </label>
                 <input onChange={(event) => {
                     setData({ ...data, company: event.target.value })
                 }} type="text" name="company" value={data.company} />
